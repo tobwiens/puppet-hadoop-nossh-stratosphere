@@ -21,17 +21,17 @@
   <value><%= scope.lookupvar('hadoop::params::resourcemanager') %>:<%= scope.lookupvar('hadoop::params::scheduler_port') %></value>
 </property>
 <property>
+<name>yarn.nodemanager.webapp.address</name><value>0.0.0.0:9035</value>
+</property>
+<property>
+<name>yarn.resourcemanager.webapp.address</name><value>0.0.0.0:9026</value>
+</property>
+<property>
   <name>yarn.resourcemanager.address</name>
   <value><%= scope.lookupvar('hadoop::params::resourcemanager') %>:<%= scope.lookupvar('hadoop::params::resourcemanager_port') %></value>
 </property>
-<!--
 <property>
-  <name>yarn.nodemanager.local-dirs</name>
-  <value><%= scope.lookupvar('hadoop::params::yarn_nodemanager_localdirs') %></value>
+  <name>yarn.resourcemanager.hostname</name>
+  <value><%= scope.lookupvar('hadoop::params::resourcemanager') %></value>
 </property>
-<property>
-  <name>yarn.nodemanager.log-dirs</name>
-  <value><%= scope.lookupvar('hadoop::params::yarn_nodemanager_logdirs') %></value>
-</property>
--->
 </configuration>
