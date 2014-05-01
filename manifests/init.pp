@@ -53,6 +53,14 @@ class hadoop {
 		alias => "hadoop-tmp-dir",
 		require => File["${hadoop::params::hadoop_user}-home"]
 	}
+	
+	file {"${hadoop::params::hadoop_run_path}":
+		ensure => "directory",
+		owner => "${hadoop::params::hadoop_user}",
+		group => "${hadoop::params::hadoop_group}",
+		alias => "hadoop-run-dir",
+		require => File["${hadoop::params::hadoop_user}-home"]
+	}
  
 	#file {"${hadoop::params::hdfs_path}":
 	#	ensure => "directory",

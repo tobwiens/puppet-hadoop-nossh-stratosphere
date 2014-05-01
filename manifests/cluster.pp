@@ -81,7 +81,9 @@ exec { "Start slave nodemanager":
         user => "${hadoop::params::hadoop_user}",
         alias => "start-slave-nodemanager",
         path    => ["/bin", "/usr/bin", "${hadoop::params::hadoop_base}/hadoop-${hadoop::params::version}/sbin"],
-unless => "/opt/java/jdk1.7.0_51/bin/jps | grep NodeManager 2>/dev/null",
+		unless => "${java::params::java_base}/jdk${java::params::java_version}/bin/jps | grep NodeManager 2>/dev/null",
+		refresh => "${java::params::java_base}/jdk${java::params::java_version}/bin/jps | grep NodeManager | grep -o '[0-9]*' | xargs  kill;./hadoop-daemon.sh start datanode",
+		subscribe => File["${hadoop::params::hadoop_base}/hadoop-${hadoop::params::version}/conf/yarn-site.xml"],
     }
 
 	exec { "Start slave datanode":
@@ -91,7 +93,7 @@ unless => "/opt/java/jdk1.7.0_51/bin/jps | grep NodeManager 2>/dev/null",
         alias => "start-slave-datanode",
         path    => ["/bin", "/usr/bin", "${hadoop::params::hadoop_base}/hadoop-${hadoop::params::version}/sbin"],
 		unless => "${java::params::java_base}/jdk${java::params::java_version}/bin/jps | grep DataNode 2>/dev/null",
-		refresh => "./hadoop-daemon.sh stop datanode;./hadoop-daemon.sh start datanode",
+		refresh => "${java::params::java_base}/jdk${java::params::java_version}/bin/jps | grep DataNode | grep -o '[0-9]*' | xargs  kill;./hadoop-daemon.sh start datanode",
 		subscribe => File["${hadoop::params::hadoop_base}/hadoop-${hadoop::params::version}/conf/core-site.xml"],
 		logoutput => true,
     }
