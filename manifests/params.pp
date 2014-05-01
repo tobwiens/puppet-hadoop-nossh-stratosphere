@@ -83,4 +83,14 @@ class hadoop::params {
  	$hadoop_tmp_path = $::hostname ? {
 		default			=> "${hadoop_user_path}/tmp",
 	}
+
+	$hadoop_yarn_mb_reserved_for_os_mb = 600
+
+ if $::memorysize_mb < 1024 {
+        warning( "Machine has few memory available" )
+ $hadoop_yarn_nodemanager_resource_memory_mb = 256
+}
+else
+        { $hadoop_yarn_nodemanager_resource_memory_mb = $::memorysize_mb - $hadoop_yarn_mb_reserved_for_os_mb }
+
 }

@@ -34,4 +34,9 @@
   <name>yarn.resourcemanager.hostname</name>
   <value><%= scope.lookupvar('hadoop::params::resourcemanager') %></value>
 </property>
+<property>
+<name>yarn.nodemanager.resource.memory-mb</name>
+<value>
+<%= scope.lookupvar('hadoop::params::hadoop_yarn_nodemanager_resource_memory_mb') %></value>
+</property>
 </configuration>
