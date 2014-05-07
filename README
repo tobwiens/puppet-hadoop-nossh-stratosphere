@@ -1,26 +1,13 @@
 
-Puppet module for deploying Hadoop MapReduce Next Generation on cluster
+Puppet module for deploying and automatically configuring hadoop, hdfs and yarn on a cluster of machines. The slaves only have to sign in at the the puppet master, the rest is fully automated. 
+Stratosphere is started on top of YARN.
 
-This module deploys Hadoop MapReduce Next Generation on a cluster of machines. It is tested with Apache Hadoop 2.0.3-alpha under puppet agent/master environment. It is based on bcarpio/hadoop 0.0.3.
+This module deploys Hadoop MapReduce on a cluster of machines. And runs stratosphere on top of YARN. It is based on viirya/hadoop 0.0.4, thank you.
 
-Usage
+Usage:
 
-After installing this module in puppet master node, in site.pp, defining:
-
-node 'your hadoop slave nodes' {
-    include java
-    include hadoop::cluster::slave
-}
-
-node 'your hadoop master node' {
-    include java
-    include hadoop::cluster::master
-}
-
-Downloading Apache Hadoop package (tested with 2.0.3-alpha) and putting the file (hadoop-2.0.3-alpha.tar.gz) under files/.
-
-Please also modify parameters 'master', 'resourcemanager' and 'slaves' in manifests/params.pp.
-
-If you want to use other version of Hadoop MapReduce Next Generation, please download the tar file and put in files/. Then modify parameter 'version' in manifests/params.pp.
+- Configure good firewalls/security-groups
+- Each puppet agent which connects to the puppet master will be used as a hdfs and yarn node.
+- Configuration does happen automatically
 
 

@@ -96,6 +96,6 @@ class hadoop::params {
 		}
 	else
         { 
-        $hadoop_yarn_nodemanager_resource_memory_mb = $::memorysize_mb - $hadoop_yarn_mb_reserved_for_os_mb 
+        $hadoop_yarn_nodemanager_resource_memory_mb = floor($::memorysize_mb - $hadoop_yarn_mb_reserved_for_os_mb)
         }
 }
